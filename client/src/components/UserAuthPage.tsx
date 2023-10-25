@@ -2,22 +2,27 @@ import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { Button, buttonVariants } from "./ui/button";
 import UserSignupForm from "./UserSignupForm";
+import { useState } from "react";
+import UserLoginPage from "./UserLoginPage";
 
-function Signup() {
+function UserAuthPage() {
   const navigate = useNavigate();
+  const [handleAuth, setHandleAuth] = useState(true);
   return (
     <>
       <div className="md:hidden"></div>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Button
           variant={"ghost"}
-          onClick={() => navigate("/login")}
+          onClick={() => {
+            setHandleAuth(!handleAuth);
+          }}
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "absolute right-4 top-4 md:right-8 md:top-8"
           )}
         >
-          Login
+          {handleAuth ? "Login" : "Signup"}
         </Button>
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
@@ -62,7 +67,7 @@ function Signup() {
                 Enter your email below to create your account
               </p>
             </div>
-            <UserSignupForm />
+            {handleAuth ? <UserSignupForm /> : <UserLoginPage />}
 
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our
@@ -88,4 +93,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default UserAuthPage;
