@@ -20,8 +20,9 @@ function App() {
     );
   }
 
-  if (isError) {
+  if (isError || !data) {
     navigate("/login");
+    return null; // or some placeholder JSX until navigation completes
   }
 
   return (
