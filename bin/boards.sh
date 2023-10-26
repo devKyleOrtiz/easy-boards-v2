@@ -21,7 +21,8 @@ cd ..
 rm -rf public
 
 # Copy built assets to the public directory
-cp -a client/build/. public/
+cp -a client/dist/. public/
+
 
 # BACKEND BUILD
 
