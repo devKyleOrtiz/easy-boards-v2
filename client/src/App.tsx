@@ -3,6 +3,7 @@ import UserAuthPage from "./components/UserAuthPage";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 import getUser from "./actions/getUser";
 import { Spinner } from "./lib/spinner";
+import { useEffect } from "react";
 
 interface AuthPageWrapperProps {
   isSignup: boolean;
@@ -12,16 +13,18 @@ function App() {
   const navigate = useNavigate();
   const { data, isLoading, isError } = getUser();
 
+  useEffect(() => {
+    if (isError || !data) {
+      navigate("/login");
+    }
+  }, [isError, data, navigate]);
+
   if (isLoading) {
     return (
       <div className="h-full flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
-  }
-
-  if (isError) {
-    navigate("/login");
   }
 
   return (
