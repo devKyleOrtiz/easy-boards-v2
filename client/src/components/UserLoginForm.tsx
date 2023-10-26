@@ -19,7 +19,8 @@ const formSchema = z.object({
     message: "Password must be at least 7 characters.",
   }),
 });
-function UserSignupForm() {
+
+function UserLoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,10 +28,10 @@ function UserSignupForm() {
       password: "",
     },
   });
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -74,4 +75,4 @@ function UserSignupForm() {
   );
 }
 
-export default UserSignupForm;
+export default UserLoginForm;
