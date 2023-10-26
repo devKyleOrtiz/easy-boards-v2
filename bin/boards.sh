@@ -1,11 +1,32 @@
 #!/usr/bin/env bash
-# exit on error
+
+# Exit on error
 set -o errexit
 
-# Add build commands for front end
+# FRONTEND BUILD
+
+# Navigate to the client directory
+cd client
+
+# Install frontend dependencies
+npm install
+
+# Build frontend assets
+npm run build
+
+# Navigate back to the root directory
+cd ..
+
+# Delete the current public directory (make sure this is what you want!)
 rm -rf public
-npm install --prefix client && npm run build --prefix client
+
+# Copy built assets to the public directory
 cp -a client/build/. public/
 
+# BACKEND BUILD
+
+# Install Rails dependencies
 bundle install
+
+# Run database migrations
 bundle exec rake db:migrate
