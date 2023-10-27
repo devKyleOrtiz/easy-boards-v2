@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import UserAuthPage from "./components/UserAuthPage";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 import getUser from "./actions/getUser";
@@ -11,13 +11,21 @@ interface AuthPageWrapperProps {
 
 function App() {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = getUser();
+  const location = useLocation();
+  const shouldGetUser = !["/login", "/sign-up"].includes(location.pathname);
+  const { data, isLoading, isError } = shouldGetUser
+    ? getUser()
+    : { data: null, isLoading: false, isError: false };
 
   useEffect(() => {
-    if (isError || !data) {
+    // Only redirect if not on the login or sign-up paths
+    if (
+      (isError || !data) &&
+      !["/login", "/sign-up"].includes(location.pathname)
+    ) {
       navigate("/login");
     }
-  }, [isError, data, navigate]);
+  }, [isError, data, navigate, location.pathname]);
 
   if (isLoading) {
     return (
