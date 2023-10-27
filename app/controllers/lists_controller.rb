@@ -18,7 +18,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
 
     if @list.save
-      render json: @list, status: :created, location: @list
+      render json: @list, status: :created
     else
       render json: @list.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class ListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def list_params
-      params.fetch(:list, {})
+      params.permit(:list).require(:name,:board_id)
     end
 end
