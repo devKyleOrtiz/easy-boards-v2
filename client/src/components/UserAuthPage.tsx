@@ -73,19 +73,19 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
 
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our
-              <div
+              <p
                 onClick={() => navigate("/terms")}
                 className="underline underline-offset-4 hover:text-primary cursor-pointer"
               >
                 Terms of Service
-              </div>
+              </p>
               and
-              <div
+              <p
                 onClick={() => navigate("/privacy")}
                 className="underline underline-offset-4 hover:text-primary cursor-pointer"
               >
                 Privacy Policy
-              </div>
+              </p>
               .
             </p>
           </div>
