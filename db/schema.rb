@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_27_015346) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_29_003025) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,12 +22,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_27_015346) do
     t.index ["user_id"], name: "index_boards_on_user_id"
   end
 
-  create_table "lists", force: :cascade do |t|
-    t.string "name"
+  create_table "cards", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.date "due_date"
+    t.integer "list_id", null: false
     t.integer "position"
-    t.integer "board_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["list_id", "position"], name: "index_cards_on_list_id_and_position", unique: true
+    t.index ["list_id"], name: "index_cards_on_list_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "board_id"
+    t.integer "position"
+    t.string "title", null: false
+    t.index ["board_id", "position"], name: "index_lists_on_board_id_and_position", unique: true
   end
 
   create_table "users", force: :cascade do |t|
