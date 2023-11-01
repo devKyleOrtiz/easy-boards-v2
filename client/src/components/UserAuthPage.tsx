@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, buttonVariants } from "./ui/button";
 import UserSignupForm from "./UserSignupForm";
 import UserLoginForm from "./UserLoginForm";
+import { Toaster } from "sonner";
 
 interface UserAuthPageProps {
   signup: boolean;
@@ -60,6 +61,7 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
           </div>
         </div>
         <div className="lg:p-8">
+          <Toaster richColors />
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">
