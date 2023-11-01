@@ -66,7 +66,7 @@ function UserSignupForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full text-white" type="submit">
           Submit
         </Button>
       </form>

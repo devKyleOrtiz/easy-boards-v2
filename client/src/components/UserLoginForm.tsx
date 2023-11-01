@@ -42,11 +42,9 @@ function UserLoginForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="JaneDoe@email.com" {...field} />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -60,14 +58,12 @@ function UserLoginForm() {
               <FormControl>
                 <Input type="password" placeholder="" {...field} />
               </FormControl>
-              <FormDescription>
-                Password must be at least 7 characters.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full text-white" type="submit">
           Submit
         </Button>
       </form>

@@ -65,9 +65,15 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
               <h1 className="text-2xl font-semibold tracking-tight">
                 {signup ? "Create an account" : "Login"}
               </h1>
-              <p className="text-sm text-muted-foreground">
-                Enter your email below to create your account
-              </p>
+              {signup ? (
+                <p className="text-sm text-muted-foreground">
+                  Enter your email below to create your account
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  login to start organizing your projects!
+                </p>
+              )}
             </div>
             {signup ? <UserSignupForm /> : <UserLoginForm />}
 
@@ -86,7 +92,6 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
               >
                 Privacy Policy
               </p>
-              .
             </p>
           </div>
         </div>
