@@ -9,6 +9,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useTheme } from "@/providers/theme-provider";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -48,11 +49,16 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 export default function HoverComponents() {
+  const { theme } = useTheme();
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-background">
+          <NavigationMenuTrigger
+            className={cn({
+              "bg-background": theme === "dark",
+            })}
+          >
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -85,7 +91,11 @@ export default function HoverComponents() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-background">
+          <NavigationMenuTrigger
+            className={cn({
+              "bg-background": theme === "dark",
+            })}
+          >
             Components
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -102,7 +112,11 @@ export default function HoverComponents() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="bg-background">
+        <NavigationMenuItem
+          className={cn({
+            "bg-background": theme === "dark",
+          })}
+        >
           <a href="/docs" className={navigationMenuTriggerStyle()}>
             <NavigationMenuLink>Documentation</NavigationMenuLink>
           </a>
