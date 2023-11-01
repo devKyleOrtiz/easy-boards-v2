@@ -12,6 +12,15 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+
+interface SignupFormData {
+  email: string;
+  password: string;
+}
 
 const formSchema = z.object({
   email: z.string().email().min(2),
@@ -20,6 +29,7 @@ const formSchema = z.object({
   }),
 });
 function UserSignupForm() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,8 +38,25 @@ function UserSignupForm() {
     },
   });
 
+  const mutation = useMutation<unknown, Error, SignupFormData>({
+    mutationFn: (formData) => {
+      return axios.post("/api/users", { user: formData });
+    },
+    onSuccess: () => {
+      toast.success("All signed up!");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    },
+    onError: () => {
+      toast.error(
+        "Unable to create an account. If you have an account already login"
+      );
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    mutation.mutate(values);
   }
   return (
     <Form {...form}>
@@ -66,7 +93,7 @@ function UserSignupForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full text-white" type="submit">
           Submit
         </Button>
       </form>

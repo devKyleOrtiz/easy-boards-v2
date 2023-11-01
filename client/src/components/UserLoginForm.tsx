@@ -12,6 +12,15 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 const formSchema = z.object({
   email: z.string().email().min(2),
@@ -21,6 +30,7 @@ const formSchema = z.object({
 });
 
 function UserLoginForm() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,8 +38,24 @@ function UserLoginForm() {
       password: "",
     },
   });
+
+  const mutation = useMutation<unknown, Error, LoginFormData>({
+    mutationFn: (formData) => {
+      return axios.post("/api/login", formData);
+    },
+    onSuccess: () => {
+      toast.success("All signed up!");
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    },
+    onError: () => {
+      toast.error("Incorrect username or password");
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    mutation.mutate(values);
   }
 
   return (
@@ -42,11 +68,9 @@ function UserLoginForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="JaneDoe@email.com" {...field} />
+                <Input {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
@@ -60,14 +84,12 @@ function UserLoginForm() {
               <FormControl>
                 <Input type="password" placeholder="" {...field} />
               </FormControl>
-              <FormDescription>
-                Password must be at least 7 characters.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
+        <Button className="w-full text-white" type="submit">
           Submit
         </Button>
       </form>

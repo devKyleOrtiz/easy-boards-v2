@@ -1,4 +1,5 @@
 class Board < ApplicationRecord
      belongs_to :user
-     validates :title, :user, presence: true
+     has_many :lists
+     validates :title, presence: true
 end
