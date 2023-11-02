@@ -46,7 +46,7 @@ function UserSignupForm() {
       toast.success("All signed up!");
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     },
     onError: () => {
       toast.error(

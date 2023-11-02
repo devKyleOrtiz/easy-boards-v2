@@ -44,10 +44,10 @@ function UserLoginForm() {
       return axios.post("/api/login", formData);
     },
     onSuccess: () => {
-      toast.success("All signed up!");
+      toast.success("Logged in!");
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     },
     onError: () => {
       toast.error("Incorrect username or password");

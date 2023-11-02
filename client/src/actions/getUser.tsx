@@ -3,13 +3,15 @@ import { useQuery } from "react-query";
 
 async function fetchUser() {
   try {
-    const response = axios.get("/user");
-    console.log(response);
+    const response = await axios.get("/api/user");
+    return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
 export default function getUser() {
-  return useQuery(["user"], fetchUser);
+  return useQuery(["user"], fetchUser, {
+    retry: 2,
+  });
 }

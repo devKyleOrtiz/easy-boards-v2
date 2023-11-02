@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../../../assets/logo.svg?react";
 import HoverComponents from "./HoverComponents";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTheme } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import useUserStore from "@/lib/usercontext";
+import getUser from "@/actions/getUser";
+import { useNavigate } from "react-router-dom";
+import { Spinner } from "@/lib/spinner";
 
 export default function Navbar() {
   const { theme } = useTheme();
+  const { user, setUser } = useUserStore();
+  const { data, isLoading, isError } = getUser();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (data) {
+      setUser(data);
+    }
+  }, [data]);
+
+  function handleAuth() {
+    if (!user) {
+      navigate("/login");
+    }
+  }
 
   return (
     <div
@@ -17,7 +36,19 @@ export default function Navbar() {
     >
       <Logo />
       <HoverComponents />
-      <ThemeToggle />
+      <div className="flex items-center justify-center space-x-4">
+        <ThemeToggle />
+        <Button
+          className={cn("text-white flex justify-center items-center", {
+            "bg-background hover:bg-secondary transition text-black":
+              theme === "light",
+          })}
+          onClick={handleAuth}
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : user ? "Logout" : "Login"}
+        </Button>
+      </div>
     </div>
   );
 }
