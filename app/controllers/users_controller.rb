@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy ]
+  before_action :set_user, only: %i[update destroy ]
+  wrap_parameters format: []
   skip_before_action :authorize, only: :create
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
@@ -14,7 +15,7 @@ class UsersController < ApplicationController
   def show
     user = User.find_by(id: session[:user_id])
     if user
-      render json: user, status: :ok
+      render json: user, serializer: UserSerializer
     else
       render json: { error: "Not authorized" }, status: :unauthorized
     end
@@ -48,6 +49,10 @@ class UsersController < ApplicationController
     
     def render_unprocessable_entity_response(invalid)
       render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+    end
+
+    def render_not_found_response(exception)
+      render json: { error: exception.message }, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.

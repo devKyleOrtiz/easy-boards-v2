@@ -14,7 +14,7 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
   return (
     <>
       <div className="md:hidden"></div>
-      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="container relative flex-col items-center justify-center hidden h-screen md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Button
           variant={"ghost"}
           onClick={() => {
@@ -27,7 +27,7 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
         >
           {signup ? "Login" : "Signup"}
         </Button>
-        <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+        <div className="relative flex-col hidden h-full p-10 text-white bg-muted dark:border-r lg:flex">
           <div className="absolute inset-0 bg-primary" />
           <div className="relative z-20 flex items-center text-lg font-medium">
             <svg
@@ -52,7 +52,7 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
             </svg>
           </div>
           <div className="z-20 text-center mt-[30rem]">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl">
               Easy-Boards V2
             </h1>
             <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -79,18 +79,18 @@ function UserAuthPage({ signup }: UserAuthPageProps) {
             </div>
             {signup ? <UserSignupForm /> : <UserLoginForm />}
 
-            <p className="px-8 text-center text-sm text-muted-foreground">
+            <p className="px-8 text-sm text-center text-muted-foreground">
               By clicking continue, you agree to our
               <p
                 onClick={() => navigate("/terms")}
-                className="underline underline-offset-4 hover:text-primary cursor-pointer"
+                className="underline cursor-pointer underline-offset-4 hover:text-primary"
               >
                 Terms of Service
               </p>
               and
               <p
                 onClick={() => navigate("/privacy")}
-                className="underline underline-offset-4 hover:text-primary cursor-pointer"
+                className="underline cursor-pointer underline-offset-4 hover:text-primary"
               >
                 Privacy Policy
               </p>
