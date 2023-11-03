@@ -10,6 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { useTheme } from "@/providers/theme-provider";
+import useUserStore from "@/lib/usercontext";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -50,6 +51,7 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 export default function HoverComponents() {
   const { theme } = useTheme();
+  const { user } = useUserStore();
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -117,8 +119,11 @@ export default function HoverComponents() {
             "bg-background": theme === "dark",
           })}
         >
-          <a href="/docs" className={navigationMenuTriggerStyle()}>
-            <NavigationMenuLink>Documentation</NavigationMenuLink>
+          <a
+            href={`/users/${user?.id}/dashboard`}
+            className={navigationMenuTriggerStyle()}
+          >
+            <NavigationMenuLink>Dashboard</NavigationMenuLink>
           </a>
         </NavigationMenuItem>
       </NavigationMenuList>
