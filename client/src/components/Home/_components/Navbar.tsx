@@ -13,7 +13,7 @@ import { Spinner } from "@/lib/spinner";
 export default function Navbar() {
   const { theme } = useTheme();
   const { user, setUser } = useUserStore();
-  const { data, isLoading, isError } = getUser();
+  const { data, isLoading } = getUser();
   const navigate = useNavigate();
   useEffect(() => {
     if (data) {

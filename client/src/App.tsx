@@ -1,6 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import UserAuthPage from "./components/UserAuthPage";
 import HomePage from "./components/Home/HomePage";
+import useUserStore from "./lib/usercontext";
 
 interface AuthPageWrapperProps {
   isSignup: boolean;
@@ -19,6 +20,12 @@ function App() {
 }
 
 function AuthPageWrapper({ isSignup }: AuthPageWrapperProps) {
+  const { user } = useUserStore();
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
+
   return <UserAuthPage signup={isSignup} />;
 }
 

@@ -12,6 +12,6 @@ async function fetchUser() {
 
 export default function getUser() {
   return useQuery(["user"], fetchUser, {
-    retry: 2,
+    retry: 1,
   });
 }
