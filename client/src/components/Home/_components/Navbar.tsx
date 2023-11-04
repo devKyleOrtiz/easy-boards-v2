@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import useUserStore from "@/lib/usercontext";
 import getUser from "@/actions/getUser";
 import { useNavigate } from "react-router-dom";
-import { Spinner } from "@/lib/spinner";
+import UserCard from "./UserCard";
 
 export default function Navbar() {
   const { theme } = useTheme();
@@ -38,16 +38,19 @@ export default function Navbar() {
       <HoverComponents />
       <div className="flex items-center justify-center space-x-4">
         <ThemeToggle />
-        <Button
-          className={cn("text-white flex justify-center items-center", {
-            "bg-background hover:bg-secondary transition text-black":
-              theme === "light",
-          })}
-          onClick={handleAuth}
-          disabled={isLoading}
-        >
-          {isLoading ? <Spinner /> : user ? "Logout" : "Login"}
-        </Button>
+        {!user && (
+          <Button
+            className={cn("text-white flex justify-center items-center", {
+              "bg-background hover:bg-secondary transition text-black":
+                theme === "light",
+            })}
+            onClick={handleAuth}
+            disabled={isLoading}
+          >
+            login
+          </Button>
+        )}
+        {user && <UserCard />}
       </div>
     </div>
   );
