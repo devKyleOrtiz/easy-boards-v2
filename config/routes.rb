@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :workspaces
   resources :users do
+    resources :workspaces do
     resources :boards do
-      resources :lists
+      resources :lists do 
+        resources :cards 
+      end
+    end
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

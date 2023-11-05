@@ -1,5 +1,5 @@
 import React from "react";
-import { Activity, Building2, Settings } from "lucide-react";
+import { Activity, Layout, Settings } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface WorkspaceCardProps {
@@ -14,7 +14,7 @@ export default function WorkspaceCard({ id, workspaceId }: WorkspaceCardProps) {
   const routes = [
     {
       title: "Boards",
-      icon: Building2,
+      icon: Layout,
       href: "boards",
     },
     {
@@ -55,9 +55,9 @@ export default function WorkspaceCard({ id, workspaceId }: WorkspaceCardProps) {
         const Icon = route.icon;
         return (
           <div
-            className={`flex items-center cursor-pointer ${
+            className={`flex items-center cursor-pointer px-2 py-3 hover:bg-muted  rounded-md transition  ${
               isActive(route.href)
-                ? "bg-muted rounded-lg px-5 py-2 transition"
+                ? "bg-muted-foreground rounded-lg px-5 py-2 transition"
                 : ""
             }`}
             key={route.href}
@@ -67,15 +67,13 @@ export default function WorkspaceCard({ id, workspaceId }: WorkspaceCardProps) {
               size={24}
               className={`${
                 isActive(route.href)
-                  ? "text-primary transition"
-                  : "text-gray-600"
+                  ? "text-black transition"
+                  : "text-white/30 hover:"
               }`}
             />
             <span
               className={`ml-2 ${
-                isActive(route.href)
-                  ? "text-primary transition"
-                  : "text-gray-600"
+                isActive(route.href) ? "text-black transition" : "text-white/30"
               }`}
             >
               {route.title}
