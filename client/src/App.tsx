@@ -6,6 +6,9 @@ import { NextUIProvider } from "@nextui-org/react";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 import { useEffect } from "react";
 import getUser from "./actions/getUser";
+import BoardsComponent from "./components/Dashboard/_components/BoardsComponent";
+import ActivityComponent from "./components/Dashboard/_components/ActivityComponent";
+import SettingsComponent from "./components/Dashboard/_components/SettingsComponent";
 
 interface AuthPageWrapperProps {
   isSignup: boolean;
@@ -31,6 +34,15 @@ function App() {
           />
           <Route path="/login" element={<AuthPageWrapper isSignup={false} />} />
           <Route path="/users/:id/dashboard" element={<DashboardLayout />} />
+          <Route
+            path="/users/:id/workspaces/:workspaceId"
+            element={<DashboardLayout />}
+          >
+            <Route index element={<BoardsComponent />} />
+            <Route path="boards" element={<BoardsComponent />} />
+            <Route path="activity" element={<ActivityComponent />} />
+            <Route path="settings" element={<SettingsComponent />} />
+          </Route>
         </Routes>
       </NextUIProvider>
     </>

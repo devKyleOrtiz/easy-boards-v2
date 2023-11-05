@@ -1,3 +1,4 @@
 class WorkspaceSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :position, :created_at, :updated_at
+  has_many :boards
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_04_025942) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_04_232626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +20,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_04_025942) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "background_url"
     t.index ["workspace_id", "position"], name: "index_boards_on_workspace_id_and_position", unique: true
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "due_date"
+    t.integer "list_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_cards_on_list_id"
   end
 
   create_table "lists", force: :cascade do |t|
