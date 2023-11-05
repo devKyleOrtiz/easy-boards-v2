@@ -1,6 +1,10 @@
 class BoardsController < ApplicationController
   before_action :set_board, only: %i[ show update destroy ]
 
+  def index
+    boards = Board.all
+    render json: boards, each_serializer: BoardSerializer
+  end
 
   # GET /boards/1
   def show

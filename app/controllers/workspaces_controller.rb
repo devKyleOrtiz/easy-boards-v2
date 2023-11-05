@@ -8,12 +8,13 @@ class WorkspacesController < ApplicationController
     def index
       user = User.find(params[:user_id])
       user_workspaces = user.workspaces.order(:position)
-      render json: user_workspaces
+      render json: user_workspaces, each_serializer: WorkspaceSerializer
     end
   
     def show
-      render json: @workspace
+      render json: @workspace, include: ['boards'], serializer: WorkspaceSerializer
     end
+    
   
     def create
       workspace = Workspace.new(workspace_params.merge(user_id: params[:user_id]))

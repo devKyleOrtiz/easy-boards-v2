@@ -12,27 +12,25 @@ export default function DashboardLayout() {
   const workspaces = user?.workspaces ?? [];
 
   return (
-    <div className="flex flex-col h-screen px-2 py-3">
-      <div className="flex items-center justify-between px-20">
-        <div className="flex items-center justify-center gap-x-4">
+    <div className="flex flex-col h-screen">
+      <div className="flex items-center justify-between px-24 py-4">
+        <div className="flex items-center gap-x-4">
           <Logo />
           <Button className="text-white">Create</Button>
         </div>
         <UserCard />
       </div>
-      <Divider className="my-4 mb-10" />
-      <div className="flex items-center justify-center max-w-lg ml-32">
-        <aside className="flex flex-col w-full">
-          <div className="flex items-center justify-between w-full">
+      <Divider className="mb-24" />
+      <div className="flex flex-1 overflow-hidden">
+        <aside className="flex flex-col h-full overflow-auto ml-28 w-96">
+          <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold">Workspaces</h2>
-            <Button variant={"ghost"} className="text-white">
-              {<PlusIcon />}
+            <Button variant="ghost">
+              <PlusIcon />
             </Button>
           </div>
           {workspaces.length === 0 ? (
-            <p className="leading-7 [&:not(:first-child)]:mt-6">
-              Add a workspace to get started
-            </p>
+            <p>Add a workspace to get started</p>
           ) : (
             <Accordion>
               {workspaces.map((workspace) => (
@@ -43,9 +41,9 @@ export default function DashboardLayout() {
             </Accordion>
           )}
         </aside>
-        <section className="flex-1">
+        <div className="flex-1 ml-20 overflow-auto">
           <Outlet />
-        </section>
+        </div>
       </div>
     </div>
   );

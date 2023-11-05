@@ -1,5 +1,12 @@
 import { create } from "zustand";
 
+type BoardType = {
+  title: string;
+  workspace_id: number;
+  position: number;
+  background_url: string;
+};
+
 type WorkspaceType = {
   id: number;
   name: string;
@@ -7,6 +14,7 @@ type WorkspaceType = {
   userId: number;
   createdAt: string;
   updatedAt: string;
+  boards: BoardType[];
 };
 type UserType = {
   id: number;
