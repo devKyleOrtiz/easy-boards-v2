@@ -15,7 +15,6 @@ import axios from "axios";
 export default function UserCard() {
   const { user } = useUserStore();
   const { theme } = useTheme();
-
   const handleLogout = useMutation(() => {
     return axios.delete(`/api/logout`);
   });
