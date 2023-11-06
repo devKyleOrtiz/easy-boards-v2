@@ -3,6 +3,8 @@ import { User2 } from "lucide-react";
 import React from "react";
 import { useQuery } from "react-query";
 import BoardCard from "./BoardCard";
+import BoardModal from "./BoardModal";
+import { useDisclosure } from "@nextui-org/react";
 
 interface Board {
   id: number;
@@ -20,13 +22,12 @@ export default function BoardsSection({
   workspaceId,
   userId,
 }: BoardsSectionProps) {
-  const { data, isLoading, error } = useQuery({
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { data } = useQuery({
     queryKey: ["boards"],
     queryFn: () =>
       axios.get(`/api/users/${userId}/workspaces/${workspaceId}/boards`),
   });
-
-  console.log(data?.data[0]);
 
   return (
     <section className="flex flex-col ml-5">
@@ -38,6 +39,7 @@ export default function BoardsSection({
         {data?.data.map((board: Board) => (
           <BoardCard
             key={board.id}
+            userId={userId!}
             id={board.id}
             title={board.title}
             background_url={board.background_url}
@@ -45,11 +47,8 @@ export default function BoardsSection({
             workspace_id={board.workspace_id}
           />
         ))}
-        <div
-          className={`w-72 h-40 rounded-lg shadow-md flex items-center justify-center bg-black/30 hover:scale-110 transition cursor-pointer drop-shadow-lg`}
-        >
-          <p className="text-lg font-semibold text-white">Add a board</p>
-        </div>
+
+        <BoardModal isOpen={isOpen} onOpenChange={onOpenChange} />
       </div>
     </section>
   );
